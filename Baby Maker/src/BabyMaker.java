@@ -1,22 +1,18 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BabyMaker
 	{
 	static String playerName;
 	static int parentType;
-	static String fatherName;
-	static String motherName;
-	static int motherEyeNumber;
-	static int fatherEyeNumber;
-	static String motherEyeColor;
-	static String fatherEyeColor;
-	static int motherHeterozygous;
-	static int fatherHeterozygous;
+	static ArrayList <Mother> mothers = new ArrayList <Mother>();
+	static ArrayList <Father> fathers = new ArrayList <Father>();
+
 	
 	public static void main(String[] args)
 		{
 		nameParents();
-		checkEyes();
+		setEyes();
 		}
 	
 	public static void nameParents()
@@ -30,59 +26,73 @@ public class BabyMaker
 		Scanner userInput2 = new Scanner(System.in);
 		if (parentType == 1)
 			{
+			Mother.setName(playerName);
 			System.out.println("Great!  What is the father's name?");
-			fatherName = userInput2.nextLine();
-			motherName = playerName;
+			Father.setName(userInput2.nextLine());
 			}
 		if (parentType == 2)
 			{
+			Father.setName(playerName);
 			System.out.println("Great!  What is the mother's name?");
-			motherName = userInput2.nextLine();
-			fatherName = playerName;
+			Mother.setName(userInput2.nextLine());
 			}
-		System.out.println("So, the father's name is " + fatherName + " and the mother's name is " +
-			motherName + ".");
 		}
-	public static void checkEyes()
+	
+	public static void setEyes()
 		{
 		Scanner userInput3 = new Scanner(System.in);
 		System.out.println("What color are the mother's eyes? (1) blue, (2) green, or (3) brown");
-		motherEyeNumber = userInput3.nextInt();
+		int motherEyeNumber = userInput3.nextInt();
 		System.out.println("What color are the father's eyes? (1) blue, (2) green, or (3) brown");
-		fatherEyeNumber = userInput3.nextInt();
+		int fatherEyeNumber = userInput3.nextInt();
 		Scanner userInput4 = new Scanner(System.in);
 
 		if (fatherEyeNumber == 1)
 			{
-			fatherEyeColor = "blue";
+			Father.setEyeColor("blue");
 			}
 		if (fatherEyeNumber == 2)
 			{
-			fatherEyeColor = "green";
+			Father.setEyeColor("green");
 			}
 		if (fatherEyeNumber == 3)
 			{
-			fatherEyeColor = "brown";
+			Father.setEyeColor("brown");
 			System.out.println("Is the father eye color (1) homozygous or (2) heterozygous?");
-			fatherHeterozygous = userInput4.nextInt();
+			int fatherHeterozygous = userInput4.nextInt();
+			if (fatherHeterozygous == 1)
+				{
+				Father.setHeterozygous(false);
+				}
 			}
 		if (motherEyeNumber == 1)
 			{
-			motherEyeColor = "blue";
+			Mother.setEyeColor("blue");
 			}
 		if (motherEyeNumber == 2)
 			{
-			motherEyeColor = "green";
+			Mother.setEyeColor("green");
 			}
 		if (motherEyeNumber == 3)
 			{
-			motherEyeColor = "brown";
+			Mother.setEyeColor("brown");
 			System.out.println("Is the mother eye color (1) homozygous or (2) heterozygous?");
-			motherHeterozygous = userInput4.nextInt();
+			int motherHeterozygous = userInput4.nextInt();
+			if (motherHeterozygous == 1)
+				{
+				Mother.setHeterozygous(false);
+				}
 			}
 		
-		System.out.println("So, the father has " + fatherEyeColor + " eyes, and the mother has " +
-				motherEyeColor + " eyes.");
+		System.out.println("So, " + Father.getName() + " the father has " + Father.getEyeColor() +
+				" eyes, and " + Mother.getName() + " the mother has " +
+				Mother.getEyeColor() + " eyes.");
+		}
+	
+	public static void displayParents()
+		{
+		System.out.println("Fathers");
+		System.out.println("Name");
 		}
 	}
 
