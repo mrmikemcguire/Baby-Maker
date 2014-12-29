@@ -13,6 +13,8 @@ public class BabyMaker
 		{
 		nameParents();
 		setEyes();
+		addParents();
+		displayParents();
 		}
 	
 	public static void nameParents()
@@ -87,12 +89,39 @@ public class BabyMaker
 		System.out.println("So, " + Father.getName() + " the father has " + Father.getEyeColor() +
 				" eyes, and " + Mother.getName() + " the mother has " +
 				Mother.getEyeColor() + " eyes.");
+		System.out.println();
 		}
 	
 	public static void displayParents()
 		{
-		System.out.println("Fathers");
-		System.out.println("Name");
+		System.out.println("\t\tFather");
+		System.out.println();
+		System.out.printf("%-10s  %-10s   %-10s", "Name", "Eye Color", "Heterozygous");
+		System.out.println();
+		for (Father fred : fathers)
+			{
+			System.out.printf("%-10s  %-10s   %-10s", Father.getName(), 
+					Father.getEyeColor(), Father.isHeterozygous());
+			System.out.println();
+			}
+		System.out.println();
+		System.out.println("\t\tMother");
+		System.out.println();
+		System.out.printf("%-10s  %-10s   %-10s", "Name", "Eye Color", "Heterozygous");
+		System.out.println();
+		for (Mother wilma : mothers)
+			{
+			System.out.printf("%-10s  %-10s   %-10s", Mother.getName(), 
+					Mother.getEyeColor(), Mother.isHeterozygous());
+			System.out.println();
+			}
 		}
+	
+	public static void addParents()
+		{
+		mothers.add(new Mother(Mother.getName(), Mother.getEyeColor(), Mother.isHeterozygous()));
+		fathers.add(new Father(Father.getName(), Father.getEyeColor(), Father.isHeterozygous()));
+		}
+		
 	}
 
