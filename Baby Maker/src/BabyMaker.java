@@ -5,16 +5,18 @@ public class BabyMaker
 	{
 	static String playerName;
 	static int parentType;
+	static int randomBabyNumber;
 	static ArrayList <Mother> mothers = new ArrayList <Mother>();
 	static ArrayList <Father> fathers = new ArrayList <Father>();
 
 	
 	public static void main(String[] args)
 		{
-		nameParents();
-		setEyes();
-		addParents();
-		displayParents();
+//		nameParents();
+//		setEyes();
+//		addParents();
+//		displayParents();
+		determineNumber();
 		}
 	
 	public static void nameParents()
@@ -121,6 +123,40 @@ public class BabyMaker
 		{
 		mothers.add(new Mother(Mother.getName(), Mother.getEyeColor(), Mother.isHeterozygous()));
 		fathers.add(new Father(Father.getName(), Father.getEyeColor(), Father.isHeterozygous()));
+		}
+		
+	public static int determineNumber()
+		{
+		randomBabyNumber = (int) (Math.random() * 8000);
+		if (randomBabyNumber == 1 )
+			{
+			System.out.println("Congratulations, you have triplets!");
+			determineGender();
+			determineGender();
+			determineGender();
+			}
+		else if (randomBabyNumber > 1 &&  randomBabyNumber < 11)
+			{
+			System.out.println("Congratulations, you have twins!");
+			determineGender();
+			determineGender();
+			}
+		else
+			{
+			System.out.println("Congratulations, you are having a baby!");
+			determineGender();
+			}
+		return randomBabyNumber;
+		}
+	
+	public static void determineGender()
+		{
+		int randomNumber = (int) (Math.random() * 205);
+		if (randomNumber < 107 )
+			System.out.println("Congratulations, you have a boy!");
+
+		else
+			System.out.println("Congratulations, you have a girl!");
 		}
 		
 	}
