@@ -2,7 +2,7 @@ public class Mother
 	{
 	private static String name;
 	private static String eyeColor;
-	private static boolean heterozygous = true;
+	private static boolean heterozygous = false;
 	
 	public Mother(String n, String e, boolean het)
 		{

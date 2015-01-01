@@ -9,13 +9,12 @@ public class BabyMaker
 	static ArrayList <Mother> mothers = new ArrayList <Mother>();
 	static ArrayList <Father> fathers = new ArrayList <Father>();
 
-	
 	public static void main(String[] args)
 		{
-//		nameParents();
-//		setEyes();
-//		addParents();
-//		displayParents();
+		//nameParents();
+		chooseEyes();
+		addParents();
+		//displayParents();
 		determineNumber();
 		}
 	
@@ -42,7 +41,7 @@ public class BabyMaker
 			}
 		}
 	
-	public static void setEyes()
+	public static void chooseEyes()
 		{
 		Scanner userInput3 = new Scanner(System.in);
 		System.out.println("What color are the mother's eyes? (1) blue, (2) green, or (3) brown");
@@ -64,9 +63,9 @@ public class BabyMaker
 			Father.setEyeColor("brown");
 			System.out.println("Is the father eye color (1) homozygous or (2) heterozygous?");
 			int fatherHeterozygous = userInput4.nextInt();
-			if (fatherHeterozygous == 1)
+			if (fatherHeterozygous == 2)
 				{
-				Father.setHeterozygous(false);
+				Father.setHeterozygous(true);
 				}
 			}
 		if (motherEyeNumber == 1)
@@ -82,9 +81,9 @@ public class BabyMaker
 			Mother.setEyeColor("brown");
 			System.out.println("Is the mother eye color (1) homozygous or (2) heterozygous?");
 			int motherHeterozygous = userInput4.nextInt();
-			if (motherHeterozygous == 1)
+			if (motherHeterozygous == 2)
 				{
-				Mother.setHeterozygous(false);
+				Mother.setHeterozygous(true);
 				}
 			}
 		
@@ -132,19 +131,25 @@ public class BabyMaker
 			{
 			System.out.println("Congratulations, you have triplets!");
 			determineGender();
+			determineEyeColor();
 			determineGender();
+			determineEyeColor();
 			determineGender();
+			determineEyeColor();
 			}
 		else if (randomBabyNumber > 1 &&  randomBabyNumber < 11)
 			{
 			System.out.println("Congratulations, you have twins!");
 			determineGender();
+			determineEyeColor();
 			determineGender();
+			determineEyeColor();
 			}
 		else
 			{
 			System.out.println("Congratulations, you are having a baby!");
 			determineGender();
+			determineEyeColor();
 			}
 		return randomBabyNumber;
 		}
@@ -158,6 +163,63 @@ public class BabyMaker
 		else
 			System.out.println("Congratulations, you have a girl!");
 		}
+	
+	public static void determineEyeColor()
+		{
+		if (Father.isHeterozygous() == true && Mother.isHeterozygous() == true)
+			{
+			int randomEye = (int) (Math.random() * 4);
+			if (randomEye < 3)
+				{
+				System.out.println("Your baby has brown eyes.");
+				}
+			else
+				{
+				int randomBGEye = (int) (Math.random() * 2);
+				if (randomBGEye == 1)
+					{
+					System.out.println("Your baby has blue eyes.");
+					}
+				else
+					{
+					System.out.println("Your baby has green eyes.");
+					}
+
+				}
+			}
+		else if ((!Father.isHeterozygous() && !Mother.isHeterozygous()))
+			{
+			System.out.println("Your baby has brown eyes.");
+			}
 		
+		else if ((Father.isHeterozygous() && Mother.getEyeColor().equals("blue")) ||
+				Mother.isHeterozygous() && Father.getEyeColor().equals("blue"))
+			{
+			int randomBGEye = (int) (Math.random() * 2);
+			if (randomBGEye == 1)
+				{
+				System.out.println("Your baby has blue eyes.");
+				}
+			else
+				{
+				System.out.println("Your baby has brown eyes.");
+				}
+			}
+		
+		else if ((Father.isHeterozygous() && Mother.getEyeColor().equals("green")) ||
+				Mother.isHeterozygous() && Father.getEyeColor().equals("green"))
+			{
+			int randomBGEye = (int) (Math.random() * 2);
+			if (randomBGEye == 1)
+				{
+				System.out.println("Your baby has green eyes.");
+				}
+			else
+				{
+				System.out.println("Your baby has brown eyes.");
+				}
+			}	
+		}
 	}
+	
 
