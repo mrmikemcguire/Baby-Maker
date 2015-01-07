@@ -3,12 +3,14 @@ public class Father
 	private static String name;
 	private static String eyeColor;
 	private static boolean heterozygous = false;
+	private static String hair;
 	
-	public Father(String n, String e, boolean het)
+	public Father(String n, String e, boolean het, String h)
 		{
 		name = n;
 		eyeColor = e;
 		heterozygous = het;
+		hair = h;
 		}
 
 	public static String getName()
@@ -40,6 +42,14 @@ public class Father
 		{
 		Father.heterozygous = heterozygous;
 		}
-	
 
+	public static String getHair()
+		{
+		return hair;
+		}
+
+	public static void setHair(String hair)
+		{
+		Father.hair = hair;
+		}
 	}

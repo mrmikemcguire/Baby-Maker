@@ -6,16 +6,25 @@ public class BabyMaker
 	static String playerName;
 	static int parentType;
 	static int randomBabyNumber;
+	static boolean fertile = true;
 	static ArrayList <Mother> mothers = new ArrayList <Mother>();
 	static ArrayList <Father> fathers = new ArrayList <Father>();
+	static ArrayList <Baby> babies = new ArrayList <Baby>();
+
 
 	public static void main(String[] args)
 		{
-		nameParents();
+	    nameParents();
 		chooseEyes();
+		chooseHair();
 		addParents();
-		//displayParents();
-		determineNumber();
+		while(fertile)
+			{
+			determineNumber();
+			nameBaby();
+			displayFamily();
+			checkForMoreBabies();
+			}
 		}
 	
 	public static void nameParents()
@@ -86,42 +95,85 @@ public class BabyMaker
 				Mother.setHeterozygous(true);
 				}
 			}
-		
-		System.out.println("So, " + Father.getName() + " the father has " + Father.getEyeColor() +
-				" eyes, and " + Mother.getName() + " the mother has " +
-				Mother.getEyeColor() + " eyes.");
-		System.out.println();
 		}
+
+	public static void chooseHair()
+		
+			{
+			Scanner userInput3 = new Scanner(System.in);
+			System.out.println("What color is the mother's hair? (1) black, (2) brown, (3) red, or (4) blonde?");
+			int motherHair = userInput3.nextInt();
+			System.out.println("What color is the father's hair? (1) black, (2) brown, (3) red, or (4) blonde?");
+			int fatherHair = userInput3.nextInt();
+			Scanner userInput4 = new Scanner(System.in);
+
+			if (fatherHair == 1)
+				{
+				Father.setHair("black");
+				}
+			if (fatherHair == 2)
+				{
+				Father.setHair("brown");
+				}
+			if (fatherHair == 3)
+				{
+				Father.setHair("red");
+				}
+			if (fatherHair == 4)
+				{
+				Father.setHair("blonde");
+				}
+			if (motherHair == 1)
+				{
+				Mother.setHair("black");
+				}
+			if (motherHair == 2)
+				{
+				Mother.setHair("brown");
+				}
+			if (motherHair == 3)
+				{
+				Mother.setHair("red");
+				}
+			if (motherHair == 4)
+				{
+				Mother.setHair("blonde");
+				}
+			}
+		
 	
-	public static void displayParents()
+	public static void displayFamily()
 		{
-		System.out.println("\t\tFather");
+		System.out.println("\t\tThe Family");
 		System.out.println();
-		System.out.printf("%-10s  %-10s   %-10s", "Name", "Eye Color", "Heterozygous");
+		System.out.printf("%-10s  %-10s   %-10s", "Name", "Eye Color", "Hair Color");
 		System.out.println();
 		for (Father fred : fathers)
 			{
 			System.out.printf("%-10s  %-10s   %-10s", Father.getName(), 
-					Father.getEyeColor(), Father.isHeterozygous());
-			System.out.println();
+					Father.getEyeColor(), Father.getHair());
 			}
-		System.out.println();
-		System.out.println("\t\tMother");
-		System.out.println();
-		System.out.printf("%-10s  %-10s   %-10s", "Name", "Eye Color", "Heterozygous");
 		System.out.println();
 		for (Mother wilma : mothers)
 			{
 			System.out.printf("%-10s  %-10s   %-10s", Mother.getName(), 
-					Mother.getEyeColor(), Mother.isHeterozygous());
+					Mother.getEyeColor(), Mother.getHair());
+			System.out.println();
+			}
+		System.out.println();
+		for (int i = 0; i < babies.size(); i++)
+			{
+			System.out.printf("%-10s  %-10s   %-10s", babies.get(i).getName(), 
+					babies.get(i).getEyeColor(), babies.get(i).getHair());
 			System.out.println();
 			}
 		}
 	
 	public static void addParents()
 		{
-		mothers.add(new Mother(Mother.getName(), Mother.getEyeColor(), Mother.isHeterozygous()));
-		fathers.add(new Father(Father.getName(), Father.getEyeColor(), Father.isHeterozygous()));
+		mothers.add(new Mother(Mother.getName(), Mother.getEyeColor(), Mother.isHeterozygous(), Mother.getHair()));
+		fathers.add(new Father(Father.getName(), Father.getEyeColor(), Father.isHeterozygous(), Father.getHair()));
+		babies.add(new Baby(Baby.getName(), Baby.getEyeColor(), Baby.getHair()));
 		}
 		
 	public static int determineNumber()
@@ -132,24 +184,29 @@ public class BabyMaker
 			System.out.println("Congratulations, you have triplets!");
 			determineGender();
 			determineEyeColor();
+			determineHair();
 			determineGender();
 			determineEyeColor();
+			determineHair();
 			determineGender();
 			determineEyeColor();
+			determineHair();
 			}
 		else if (randomBabyNumber > 1 &&  randomBabyNumber < 11)
 			{
 			System.out.println("Congratulations, you have twins!");
 			determineGender();
 			determineEyeColor();
+			determineHair();
 			determineGender();
 			determineEyeColor();
+			determineHair();
 			}
 		else
 			{
-			System.out.println("Congratulations, you are having a baby!");
 			determineGender();
 			determineEyeColor();
+			determineHair();
 			}
 		return randomBabyNumber;
 		}
@@ -164,6 +221,15 @@ public class BabyMaker
 			System.out.println("Congratulations, you have a girl!");
 		}
 	
+	public static void nameBaby()
+		{
+		Scanner userInput5 = new Scanner(System.in);
+		System.out.println();
+		System.out.println("What name do you give your child?");
+		String babyName = userInput5.nextLine();
+		Baby.setName(babyName);
+		}
+	
 	public static void determineEyeColor()
 		{
 		if (Father.isHeterozygous() == true && Mother.isHeterozygous() == true)
@@ -172,6 +238,7 @@ public class BabyMaker
 			if (randomEye < 3)
 				{
 				System.out.println("Your baby has brown eyes.");
+				Baby.setEyeColor("brown");
 				}
 			else
 				{
@@ -179,10 +246,12 @@ public class BabyMaker
 				if (randomBGEye == 1)
 					{
 					System.out.println("Your baby has blue eyes.");
+					Baby.setEyeColor("blue");
 					}
 				else
 					{
 					System.out.println("Your baby has green eyes.");
+					Baby.setEyeColor("green");
 					}
 
 				}
@@ -195,10 +264,12 @@ public class BabyMaker
 			if (randomBGEye == 1)
 				{
 				System.out.println("Your baby has blue eyes.");
+				Baby.setEyeColor("blue");
 				}
 			else
 				{
 				System.out.println("Your baby has brown eyes.");
+				Baby.setEyeColor("brown");
 				}
 			}
 		
@@ -209,10 +280,12 @@ public class BabyMaker
 			if (randomBGEye == 1)
 				{
 				System.out.println("Your baby has green eyes.");
+				Baby.setEyeColor("green");
 				}
 			else
 				{
 				System.out.println("Your baby has brown eyes.");
+				Baby.setEyeColor("brown");
 				}
 			}	
 		
@@ -224,10 +297,12 @@ public class BabyMaker
 	  		  if (randomBGEye == 1)
 	  			  {
 	  			  System.out.println("Your baby has blue eyes.");
+	  			  Baby.setEyeColor("blue");
 	  			  }
 	  		  else
 	  			  {
 	  			  System.out.println("Your baby has green eyes.");
+	  			  Baby.setEyeColor("green");
 	  			  }
 	  		  }
 		    
@@ -238,20 +313,143 @@ public class BabyMaker
 	  		  if (randomBGEye == 1)
 	  			  {
 	  			  System.out.println("Your baby has green eyes.");
+	  			  Baby.setEyeColor("green");
 	  			  }
 	  		  }
 	  		
 	   else if  (Father.getEyeColor().equals("blue") && Mother.getEyeColor().equals("blue"))
 	  			  {
 	  			  System.out.println("Your baby has blue eyes.");
+	  			  Baby.setEyeColor("blue");
 	  			  }
 	  		  
 		else if ((!Father.isHeterozygous() && !Mother.isHeterozygous()))
 			{
-			System.out.println("Your baby has brown eyes. XXX");
+			System.out.println("Your baby has brown eyes.");
+			Baby.setEyeColor("brown");
 			}
 	     }
+	
+	public static void determineHair()
+		{
+		if (Father.getHair().equals(Mother.getHair()))
+			{
+			System.out.println("Your baby has " + Mother.getHair() + " hair.");
+			Baby.setHair(Mother.getHair());
+			}
+		
+		else if ((Father.getHair().equals("black")) && Mother.getHair().equals("brown") ||
+		  		  Father.getHair().equals("brown") && Mother.getHair().equals("black"))
+	  		  {
+	  		  int randomBGEye = (int) (Math.random() * 4);
+	  		  if (randomBGEye < 2)
+	  			  {
+	  			  System.out.println("Your baby has black hair.");
+	  			  Baby.setHair("black");
+	  			  }
+	  		  else
+	  			  {
+	  			  System.out.println("Your baby has brown hair.");
+	  			  Baby.setHair("brown");
+	  			  }
+	  		  }
+		
+	     else if ((Father.getHair().equals("black")) && Mother.getHair().equals("red") ||
+		  		  Father.getHair().equals("red") && Mother.getHair().equals("black"))
+	  		  {
+	  		  int randomBGEye = (int) (Math.random() * 4);
+	  		  if (randomBGEye < 2)
+	  			  {
+	  			  System.out.println("Your baby has black hair.");
+	  			  Baby.setHair("black");
+	  			  }
+	  		  else
+	  			  {
+	  			  System.out.println("Your baby has red hair.");
+	  			  Baby.setHair("red");
+	  			  }
+	  		  }
+	     else if ((Father.getHair().equals("blonde")) && Mother.getHair().equals("red") ||
+		  		  Father.getHair().equals("red") && Mother.getHair().equals("blonde"))
+	  		  {
+	  		  int randomBGEye = (int) (Math.random() * 4);
+	  		  if (randomBGEye < 1)
+	  			  {
+	  			  System.out.println("Your baby has blonde hair.");
+	  			  Baby.setHair("blonde");
+	  			  }
+	  		  else
+	  			  {
+	  			  System.out.println("Your baby has red hair.");
+	  			  Baby.setHair("red");
+	  			  }
+	  		  }
+	     else if ((Father.getHair().equals("brown")) && Mother.getHair().equals("red") ||
+		  		  Father.getHair().equals("red") && Mother.getHair().equals("brown"))
+	  		  {
+	  		  int randomBGEye = (int) (Math.random() * 4);
+	  		  if (randomBGEye < 2)
+	  			  {
+	  			  System.out.println("Your baby has brown hair.");
+	  			  Baby.setHair("brown");
+	  			  }
+	  		  else
+	  			  {
+	  			  System.out.println("Your baby has red hair.");
+	  			  Baby.setHair("red");
+	  			  }
+	  		  }
+	     else if ((Father.getHair().equals("blonde")) && Mother.getHair().equals("black") ||
+		  		  Father.getHair().equals("black") && Mother.getHair().equals("blonde"))
+	  		  {
+	  		  int randomBGEye = (int) (Math.random() * 4);
+	  		  if (randomBGEye < 1)
+	  			  {
+	  			  System.out.println("Your baby has blonde hair.");
+	  			  Baby.setHair("blonde");
+	  			  }
+	  		  else
+	  			  {
+	  			  System.out.println("Your baby has black hair.");
+	  			  Baby.setHair("black");
+	  			  }
+	  		  }
+	     else if ((Father.getHair().equals("blonde")) && Mother.getHair().equals("brown") ||
+		  		  Father.getHair().equals("brown") && Mother.getHair().equals("blonde"))
+	  		  {
+	  		  int randomBGEye = (int) (Math.random() * 4);
+	  		  if (randomBGEye < 1)
+	  			  {
+	  			  System.out.println("Your baby has blonde hair.");
+	  			  Baby.setHair("blonde");
+	  			  }
+	  		  else
+	  			  {
+	  			  System.out.println("Your baby has brown hair.");
+	  			  Baby.setHair("brown");
+	  			  }
+	  		  }
+		}
+	
+	public static void checkForMoreBabies()
+		{
+		Scanner userInput6 = new Scanner(System.in);
+		System.out.println();
+		System.out.println("Would you like to have more children? (1) yes, or (2) no?");
+		int choice = userInput6.nextInt();
+		if (choice == 2)
+			{
+			fertile = false;
+			System.out.println("Great.  Enjoy your family!");
+			}
+		else
+			{
+			determineNumber();
+			babies.add(new Baby(Baby.getName(), Baby.getEyeColor(), Baby.getHair()));
+			}
+		}
 	}
+	
 	  		   		  
 	  		  
 	  			  

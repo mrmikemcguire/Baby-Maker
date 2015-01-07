@@ -1,15 +1,15 @@
-public class Mother
+public class Baby
 	{
 	private static String name;
 	private static String eyeColor;
-	private static boolean heterozygous = false;
+	//private static boolean heterozygous = false;
 	private static String hair;
 	
-	public Mother(String n, String e, boolean het, String h)
+	public Baby(String n, String e, String h)
 		{
 		name = n;
 		eyeColor = e;
-		heterozygous = het;
+		//heterozygous = het;
 		hair = h;
 		}
 
@@ -25,23 +25,23 @@ public class Mother
 
 	public static void setName(String name)
 		{
-		Mother.name = name;
+		Baby.name = name;
 		}
 
 	public static void setEyeColor(String eyeColor)
 		{
-		Mother.eyeColor = eyeColor;
+		Baby.eyeColor = eyeColor;
 		}
 
-	public static boolean isHeterozygous()
-		{
-		return heterozygous;
-		}
-
-	public static void setHeterozygous(boolean heterozygous)
-		{
-		Mother.heterozygous = heterozygous;
-		}
+//	public static boolean isHeterozygous()
+//		{
+//		return heterozygous;
+//		}
+//
+//	public static void setHeterozygous(boolean heterozygous)
+//		{
+//		Baby.heterozygous = heterozygous;
+//		}
 
 	public static String getHair()
 		{
@@ -50,6 +50,6 @@ public class Mother
 
 	public static void setHair(String hair)
 		{
-		Mother.hair = hair;
+		Baby.hair = hair;
 		}
 	}
