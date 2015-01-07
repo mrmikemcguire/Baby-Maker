@@ -173,7 +173,6 @@ public class BabyMaker
 		{
 		mothers.add(new Mother(Mother.getName(), Mother.getEyeColor(), Mother.isHeterozygous(), Mother.getHair()));
 		fathers.add(new Father(Father.getName(), Father.getEyeColor(), Father.isHeterozygous(), Father.getHair()));
-		babies.add(new Baby(Baby.getName(), Baby.getEyeColor(), Baby.getHair()));
 		}
 		
 	public static int determineNumber()
@@ -429,6 +428,7 @@ public class BabyMaker
 	  			  Baby.setHair("brown");
 	  			  }
 	  		  }
+		babies.add(new Baby(Baby.getName(), Baby.getEyeColor(), Baby.getHair()));
 		}
 	
 	public static void checkForMoreBabies()
@@ -442,11 +442,10 @@ public class BabyMaker
 			fertile = false;
 			System.out.println("Great.  Enjoy your family!");
 			}
-		else
-			{
-			determineNumber();
-			babies.add(new Baby(Baby.getName(), Baby.getEyeColor(), Baby.getHair()));
-			}
+//		else
+//			{
+//			babies.add(new Baby(Baby.getName(), Baby.getEyeColor(), Baby.getHair()));
+//			}
 		}
 	}
 	
