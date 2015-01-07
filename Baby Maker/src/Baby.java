@@ -1,9 +1,9 @@
 public class Baby
 	{
-	private static String name;
-	private static String eyeColor;
+	private String name;
+	private String eyeColor;
 	//private static boolean heterozygous = false;
-	private static String hair;
+	private String hair;
 	
 	public Baby(String n, String e, String h)
 		{
@@ -13,24 +13,24 @@ public class Baby
 		hair = h;
 		}
 
-	public static String getName()
+	public String getName()
 		{
 		return name;
 		}
 
-	public static String getEyeColor()
+	public String getEyeColor()
 		{
 		return eyeColor;
 		}
 
-	public static void setName(String name)
+	public void setName(String name)
 		{
-		Baby.name = name;
+		this.name = name;
 		}
 
-	public static void setEyeColor(String eyeColor)
+	public void setEyeColor(String eyeColor)
 		{
-		Baby.eyeColor = eyeColor;
+		this.eyeColor = eyeColor;
 		}
 
 //	public static boolean isHeterozygous()
@@ -43,13 +43,13 @@ public class Baby
 //		Baby.heterozygous = heterozygous;
 //		}
 
-	public static String getHair()
+	public String getHair()
 		{
 		return hair;
 		}
 
-	public static void setHair(String hair)
+	public void setHair(String hair)
 		{
-		Baby.hair = hair;
+		this.hair = hair;
 		}
 	}
