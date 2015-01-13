@@ -13,28 +13,27 @@ public class BabyMaker
 
 	public static void main(String[] args)
 		{
-		instantiateFather();
-		instantiateMother();
-	    nameParents();
-		chooseEyes();
-		chooseHair();
-		addParents();
+		Person father = instantiateFather();
+		Person mother = instantiateMother();
+	    nameParents(father, mother);
+		chooseEyes(father, mother);
+		chooseHair(father, mother);
+		addParents(father, mother);
 		while(fertile)
 			{
-			determineNumber();
-			nameBaby();
+			makeBabies(father, mother);
 			displayFamily();
 			checkForMoreBabies();
 			}
 		}
 	
-	public static Object instantiateFather()
+	public static Person instantiateFather()
 		{
 		Person f = new Person("", "", false, "");
 		return f;
 		}
 	
-	public static Object instantiateMother()
+	public static Person instantiateMother()
 		{
 		Person m = new Person("", "", false, "");
 		return m;
@@ -64,7 +63,7 @@ public class BabyMaker
 			}
 		}
 	
-	public static void chooseEyes()
+	public static void chooseEyes(Person f, Person m)
 		{
 		Scanner userInput3 = new Scanner(System.in);
 		System.out.println("What color are the mother's eyes? (1) blue, (2) green, or (3) brown");
@@ -111,7 +110,7 @@ public class BabyMaker
 			}
 		}
 
-	public static void chooseHair()
+	public static void chooseHair(Person f, Person m)
 		
 			{
 			Scanner userInput3 = new Scanner(System.in);
@@ -162,16 +161,16 @@ public class BabyMaker
 		System.out.println();
 		System.out.printf("%-10s  %-10s   %-10s", "Name", "Eye Color", "Hair Color");
 		System.out.println();
-		for (Person fred : fathers)
+		for (Person p : fathers)
 			{
-			System.out.printf("%-10s  %-10s   %-10s", f.getName(), 
-					f.getEyeColor(), f.getHair());
+			System.out.printf("%-10s  %-10s   %-10s", p.getName(), 
+					p.getEyeColor(), p.getHair());
 			}
 		System.out.println();
-		for (Person wilma : mothers)
+		for (Person p : mothers)
 			{
-			System.out.printf("%-10s  %-10s   %-10s", m.getName(), 
-					m.getEyeColor(), m.getHair());
+			System.out.printf("%-10s  %-10s   %-10s", p.getName(), 
+					p.getEyeColor(), p.getHair());
 			System.out.println();
 			}
 		System.out.println();
@@ -183,48 +182,47 @@ public class BabyMaker
 			}
 		}
 	
-	public static void addParents()
+	public static void addParents(Person f, Person m)
 		{
-		mothers.add(new Person(m.getName(), m.getEyeColor(), m.isHeterozygous(), m.getHair()));
-		fathers.add(new Person(f.getName(), f.getEyeColor(), f.isHeterozygous(), Person.getHair()));
+		mothers.add(m);
+		fathers.add(f);
 		}
-		
+	public static void makeBabies(Person f, Person m) {
+	int babyCount = determineNumber();
+	for (int i = 0; i < babyCount; i++) {
+		makeBaby(f, m);
+	}
+}
+
+public static void makeBaby(Person f, Person m) {
+	Person b = new Person("", "", false, "");
+	determineGender(b);
+	determineEyeColor(f, m, b);
+	determineHair(f, m, b);
+	nameBaby(b);
+	babies.add(b);
+}
 	public static int determineNumber()
 		{
 		randomBabyNumber = (int) (Math.random() * 8000);
 		if (randomBabyNumber == 1 )
 			{
 			System.out.println("Congratulations, you have triplets!");
-			determineGender();
-			determineEyeColor();
-			determineHair();
-			determineGender();
-			determineEyeColor();
-			determineHair();
-			determineGender();
-			determineEyeColor();
-			determineHair();
+			return 3;
 			}
 		else if (randomBabyNumber > 1 &&  randomBabyNumber < 11)
 			{
 			System.out.println("Congratulations, you have twins!");
-			determineGender();
-			determineEyeColor();
-			determineHair();
-			determineGender();
-			determineEyeColor();
-			determineHair();
+			return 2;
 			}
 		else
 			{
-			determineGender();
-			determineEyeColor();
-			determineHair();
+			return 1;
 			}
-		return randomBabyNumber;
+
 		}
 	
-	public static void determineGender()
+	public static void determineGender(Person b)
 		{
 		int randomNumber = (int) (Math.random() * 205);
 		if (randomNumber < 107 )
@@ -234,17 +232,15 @@ public class BabyMaker
 			System.out.println("Congratulations, you have a girl!");
 		}
 	
-	public static void nameBaby()
+	public static void nameBaby(Person b)
 		{
 		Scanner userInput5 = new Scanner(System.in);
 		System.out.println();
 		System.out.println("What name do you give your child?");
-		babyName = userInput5.nextLine();
-		b.setName(babyName);
-		babies.add(new Person(babyName, babyEyes, false, babyHair));
+		b.setName(userInput5.nextLine());
 		}
 	
-	public static void determineEyeColor()
+	public static void determineEyeColor(Person m, Person f, Person b)
 		{
 		if (f.isHeterozygous() == true && m.isHeterozygous() == true)
 			{
@@ -344,7 +340,7 @@ public class BabyMaker
 			}
 	     }
 	
-	public static void determineHair()
+	public static void determineHair(Person m, Person f, Person b)
 		{
 		if (f.getHair().equals(m.getHair()))
 			{
