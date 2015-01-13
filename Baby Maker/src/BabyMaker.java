@@ -13,8 +13,8 @@ public class BabyMaker
 
 	public static void main(String[] args)
 		{
-		Person father = instantiateFather();
-		Person mother = instantiateMother();
+		Person father = new Person("", "", false, "");
+		Person mother = new Person("", "", false, "");
 	    nameParents(father, mother);
 		chooseEyes(father, mother);
 		chooseHair(father, mother);
@@ -25,18 +25,6 @@ public class BabyMaker
 			displayFamily();
 			checkForMoreBabies();
 			}
-		}
-	
-	public static Person instantiateFather()
-		{
-		Person f = new Person("", "", false, "");
-		return f;
-		}
-	
-	public static Person instantiateMother()
-		{
-		Person m = new Person("", "", false, "");
-		return m;
 		}
 	
 	public static void nameParents(Person f, Person m)
@@ -187,21 +175,24 @@ public class BabyMaker
 		mothers.add(m);
 		fathers.add(f);
 		}
-	public static void makeBabies(Person f, Person m) {
+	public static void makeBabies(Person f, Person m) 
+		{
 	int babyCount = determineNumber();
 	for (int i = 0; i < babyCount; i++) {
 		makeBaby(f, m);
+		}
 	}
-}
 
-public static void makeBaby(Person f, Person m) {
-	Person b = new Person("", "", false, "");
-	determineGender(b);
-	determineEyeColor(f, m, b);
-	determineHair(f, m, b);
-	nameBaby(b);
-	babies.add(b);
-}
+	public static void makeBaby(Person f, Person m) 
+		{
+		Person b = new Person("", "", false, "");
+		determineGender(b);
+		determineEyeColor(f, m, b);
+		determineHair(f, m, b);
+		nameBaby(b);
+		babies.add(b);
+		}
+	
 	public static int determineNumber()
 		{
 		randomBabyNumber = (int) (Math.random() * 8000);
